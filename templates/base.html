@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="ru">
+{% load static %}
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>User authenticate</title>
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+    <link rel="icon" href="{% static 'images/favicon.png' %}">
+</head>
+<body class="container">
+<ul class="list-group">
+    <li class="list-group-item">
+        USER: {{ user }}
+    </li>
+    <li class="list-group-item">
+        <a href="{% url 'home' %}">Home</a>
+    </li>
+</ul>
+{% block content %}
+{% endblock %}
+<script src="{% static "js/bootstrap.bundle.js" %}"></script>
+</body>
+</html>
