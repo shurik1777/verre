@@ -5,7 +5,7 @@
     <hr>
 
     <form action="{% url 'register' %}" method="post">
-        {{ form }}
+        {{ form.as_div }}
         {% csrf_token %}
         <button type="submit" class="btn btn-success">Зарегистрироваться</button>
     </form>
