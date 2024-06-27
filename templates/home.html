@@ -9,4 +9,10 @@
     	<a href="{% url 'login' %}">Login</a> | 
         <a href="{% url 'register' %}">Register</a>
     {% endif %} 
+     <h2>Featured Recipes</h2>
+    <ul>
+        {% for recipe in recipes %}
+            <li>{{ recipe.title }} - {{ recipe.description }}</li>
+        {% endfor %}
+    </ul>
 {% endblock %}

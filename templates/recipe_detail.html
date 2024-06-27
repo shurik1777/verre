@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h2>{{ recipe.title }}</h2>
+    <p>{{ recipe.description }}</p>
+    <p>Preparation Time: {{ recipe.preparation_time }} minutes</p>
+    <p>Author: {{ recipe.author }}</p>
+    <img src="{{ recipe.image.url }}" alt="{{ recipe.title }} Image">
+    
+    <h3>Ingredients:</h3>
+    <ul>
+        {% for ingredient in recipe.ingredients.all %}
+            <li>{{ ingredient.ingredient.name }} - {{ ingredient.unit }}</li>
+        {% endfor %}
+    </ul>
+    
+    <h3>Preparation Steps:</h3>
+    <p>{{ recipe.preparation_steps }}</p>
+{% endblock %}

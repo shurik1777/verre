@@ -2,11 +2,19 @@ from django.shortcuts import render, redirect
 from django.views import View
 
 from .forms import IngredientForm, CategoryForm, RecipeForm
-from .models import Ingredient
+from .models import Ingredient, Recipe
 
 
 # def all_receipt(request):
 #     return render(request, 'cocktail/all_receipt.html')
+def home_page(request):
+    recipes = Recipe.objects.order_by('ingredients__unit_id')[:5]  # Get 5 random recipes
+    return render(request, 'home.html', {'recipes': recipes})
+
+
+def recipe_detail(request, recipe_slug):
+    recipe = Recipe.objects.get(slug=recipe_slug)
+    return render(request, 'recipe_detail.html', {'recipe': recipe})
 
 
 class AddIngredientView(View):
