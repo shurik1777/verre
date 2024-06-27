@@ -79,3 +79,7 @@ class RecipeIngredient(m.Model):
     class Meta:
         verbose_name = 'Рецепт Коктейля'
         verbose_name_plural = 'Рецепты Коктейлей'
+
+    def __str__(self):
+        return f"{self.recipe.title}"
+

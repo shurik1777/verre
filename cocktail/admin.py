@@ -26,15 +26,13 @@ class CategoryInline(admin.TabularInline):
     model = Ingredient.categories.through
     extra = 1
 
+
 @admin.register(Ingredient)
 class IngredientAdmin(admin.ModelAdmin):
     prepopulated_fields = {"slug": ("name",)}
     list_display = ["name", "description", "image", "slug"]
-    # list_editable = ["description", ]
     search_fields = ["name", "description"]
     list_filter = ["name", "description"]
-
-    # readonly_fields = ('image',)  # - Чтобы сделать поле "image" не редактируемым в админке, раскомментировать строку.
 
     def image(self, obj):
         if obj.image:
@@ -50,14 +48,13 @@ class IngredientAdmin(admin.ModelAdmin):
         "image",
     ]
     # Отображение "categories" через "through"
-    inlines = (CategoryInline, )
+    inlines = (CategoryInline,)
 
 
 @admin.register(Unit)
 class UnitAdmin(admin.ModelAdmin):
     list_display = ('u_name', 'u_anno')
     list_editable = ['u_anno', ]
-    # list_display_links = ('u_name',)
     search_fields = ('u_anno',)
     fields = [
         "u_name",
@@ -71,7 +68,6 @@ class RecipeAdmin(admin.ModelAdmin):
     list_display = ['title', 'author', 'preparation_time', 'image']
     list_display_links = ('title',)
     search_fields = ('title', 'description', 'author')
-    readonly_fields = ('image',)
     fields = [
         "title",
         "slug",
@@ -102,9 +98,29 @@ class RecipeIngredientAdmin(admin.ModelAdmin):
         "unit",
     ]
 
-    # Метод для отображения категории рецепта в форме редактирования
     def formfield_for_foreignkey(self, db_field, request, **kwargs):
         if db_field.name == "recipe":
             kwargs["queryset"] = Recipe.objects.all().order_by('title')
             return super().formfield_for_foreignkey(db_field, request, **kwargs)
         return super().formfield_for_foreignkey(db_field, request, **kwargs)
+
+# class RecipeIngredientInline(admin.TabularInline):
+#     model = RecipeIngredient
+#     extra = 1
+#     fields = ['ingredient', 'unit']
+#
+#     def formfield_for_foreignkey(self, db_field, request, **kwargs):
+#         if db_field.name == 'ingredient':
+#             kwargs['queryset'] = Ingredient.objects.all().order_by('name')
+#         elif db_field.name == 'unit':
+#             kwargs['queryset'] = Unit.objects.all().order_by('u_name')
+#         return super().formfield_for_foreignkey(db_field, request, **kwargs)
+#
+# @admin.register(RecipeIngredient)
+# class RecipeIngredientAdmin(admin.ModelAdmin):
+#     list_display = ('recipe', 'register_date')
+#     list_filter = ('recipe',)
+#     search_fields = ('recipe__title', 'ingredient__name', 'unit__u_name')
+#     fields = [
+#         "recipe",
+#     ]

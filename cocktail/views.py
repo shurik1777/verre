@@ -5,8 +5,8 @@ from .forms import IngredientForm, CategoryForm, RecipeForm
 from .models import Ingredient
 
 
-def all_receipt(request):
-    return render(request, 'cocktail/all_receipt.html')
+# def all_receipt(request):
+#     return render(request, 'cocktail/all_receipt.html')
 
 
 class AddIngredientView(View):
