@@ -22,7 +22,7 @@ class Ingredient(m.Model):
     slug = m.SlugField(max_length=200, unique=True, blank=True, null=True, verbose_name='URL')
     description = m.TextField(blank=True, null=True, verbose_name='Описание')
     image = m.ImageField(upload_to='goods_images', blank=True, null=True, verbose_name='Изображение')
-    category = m.ForeignKey(to=Category, on_delete=m.CASCADE, verbose_name='Категория')
+    categories = m.ManyToManyField(Category, verbose_name='Категория')
 
     def __str__(self):
         return f"{self.name}, цена: {self.description}"

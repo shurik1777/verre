@@ -22,11 +22,15 @@ class CategoryAdmin(admin.ModelAdmin):
     ]
 
 
+class CategoryInline(admin.TabularInline):
+    model = Ingredient.categories.through
+    extra = 1
+
 @admin.register(Ingredient)
 class IngredientAdmin(admin.ModelAdmin):
     prepopulated_fields = {"slug": ("name",)}
-    list_display = ["name", "description", "image"]
-    list_editable = ["description", ]
+    list_display = ["name", "description", "image", "slug"]
+    # list_editable = ["description", ]
     search_fields = ["name", "description"]
     list_filter = ["name", "description"]
 
@@ -44,8 +48,10 @@ class IngredientAdmin(admin.ModelAdmin):
         "slug",
         "description",
         "image",
-        "category",
     ]
+    # Отображение "categories" через "through"
+    inlines = (CategoryInline, )
+
 
 
 @admin.register(Unit)
