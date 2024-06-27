@@ -7,4 +7,5 @@ urlpatterns = [
 
     path('register/', Register.as_view(), name='register'),
     path('accounts/password_reset/done/', CustomPasswordResetDoneView.as_view(), name='password_reset_done'),
+
 ]

@@ -53,7 +53,6 @@ class IngredientAdmin(admin.ModelAdmin):
     inlines = (CategoryInline, )
 
 
-
 @admin.register(Unit)
 class UnitAdmin(admin.ModelAdmin):
     list_display = ('u_name', 'u_anno')
